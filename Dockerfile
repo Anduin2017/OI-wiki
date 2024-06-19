@@ -11,5 +11,7 @@ RUN pipenv run mkdocs build -v
 
 # ============================
 # Prepare Runtime Environment
-FROM hub.aiursoft.cn/aiursoft/static
-COPY --from=python-env /app/site /data
+FROM nginx:alpine
+COPY --from=python-env /app/site /usr/share/nginx/html
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]
